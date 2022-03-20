@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 import static codes.writeonce.launcher.Utils.getPid;
 import static codes.writeonce.launcher.Utils.getPidPath;
 
-public class StopMain {
+public class KillMain {
 
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
@@ -30,12 +30,10 @@ public class StopMain {
                 } else if (!processHandle.isAlive()) {
                     System.out.println("Process is not alive for PID=" + pid);
                     Files.deleteIfExists(pidPath);
-                } else if (!processHandle.supportsNormalTermination()) {
-                    System.out.println("Graceful termination not supported for PID=" + pid);
-                } else if (processHandle.destroy()) {
-                    System.out.println("Process terination initiated for PID=" + pid);
+                } else if (processHandle.destroyForcibly()) {
+                    System.out.println("Process forced terination initiated for PID=" + pid);
                     processHandle.onExit().get();
-                    System.out.println("Process terminated successfully for PID=" + pid);
+                    System.out.println("Process terminated forcibly for PID=" + pid);
                     Files.deleteIfExists(pidPath);
                 } else {
                     System.out.println("Cannot terminate process for PID=" + pid);
