@@ -31,7 +31,7 @@ public class KillMain {
                     System.out.println("Process is not alive for PID=" + pid);
                     Files.deleteIfExists(pidPath);
                 } else if (processHandle.destroyForcibly()) {
-                    System.out.println("Process forced terination initiated for PID=" + pid);
+                    System.out.println("Process forced termination initiated for PID=" + pid);
                     processHandle.onExit().get();
                     System.out.println("Process terminated forcibly for PID=" + pid);
                     Files.deleteIfExists(pidPath);
